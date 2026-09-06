@@ -5,24 +5,24 @@
 }
 
 :root {
-    --ink: #1c1917;
-    --paper: #faf6f0;
-    --accent: #5439d9;
-    --accent-dark: #2a32a8;
-    --line: #e3d9c9;
-    --text-muted: #6b6459;
+    --ink: #FAF5ED;
+    --paper: #000000;
+    --accent: #ffed2a;
+    --accent-dark: #b82aff;
+    --line: #1f1f1f;
     --radius: 4px;
 }
 
 body {
-    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: "Poppins", sans-serif;
     color: var(--ink);
     background-color: var(--paper);
     line-height: 1.6;
 }
 
 h1, .brand {
-    font-family: "Space Grotesk", -apple-system, sans-serif;
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
 }
 
 .container {
@@ -33,6 +33,7 @@ h1, .brand {
 
 .site-header {
     border-bottom: 1px solid var(--line);
+    
 }
 
 .site-header .container {
@@ -85,7 +86,7 @@ h1, .brand {
     font-size: 0.85rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--accent-dark);
+    color: var(--ink);
     font-weight: 700;
     margin-bottom: 0.75rem;
 }
@@ -95,8 +96,19 @@ h1, .brand {
     line-height: 0.95;
 }
 
+span{
+    background: linear-gradient(
+        270deg,
+        var(--accent) 10%,
+        var(--accent-dark) 100%
+    );
+    background-clip: text;
+    color: transparent;
+}
+
 .bio {
-    color: var(--text-muted);
+    color: var(--ink);
+    opacity: 0.6;
     max-width: 480px;
     margin-bottom: 1.5rem;
 }
@@ -111,7 +123,8 @@ h1, .brand {
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: var(--text-muted);
+    color: var(--ink);
+    opacity: 0.6;
     margin-bottom: 0.15rem;
 }
 
@@ -147,31 +160,19 @@ h1, .brand {
     position: relative;
 }
 
-.photo-block {
-    position: absolute;
-    top: 1.25rem;
-    left: 1.25rem;
-    width: 100%;
-    height: 100%;
-    background-color: var(--accent);
-    border-radius: var(--radius);
-    z-index: 0;
-}
-
 .avatar {
     position: relative;
     z-index: 1;
     display: block;
     width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: var(--radius);
-    border: 3px solid var(--ink);
+    aspect-ratio: 1/1;
+    object-fit: scale-down;
 }
 
 .site-footer {
     padding: 1.5rem;
-    color: var(--text-muted);
+    color: var(--ink);
+    opacity: 0.6;
     font-size: 0.85rem;
     border-top: 1px solid var(--line);
 }
@@ -181,7 +182,7 @@ h1, .brand {
         grid-template-columns: 1fr;
         grid-template-areas:
             "identity"
-            "photo"
+            "photo"    
             "details";
     }
 
@@ -193,3 +194,104 @@ h1, .brand {
         justify-content: flex-start;
     }
 }
+
+.experience {
+    padding: 80px 0;
+}
+
+.experience-title{
+    gap: 2rem
+    
+}
+.experience-title h2{
+    font-size: clamp(2rem, 4vw, 3rem); 
+}
+.experience-desc {
+    font-size: 1rem;
+    color: var(--ink);
+    max-width: 960px;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.experience-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+/* Tablet */
+@media (max-width: 640px) {
+    .experience-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* HP */
+@media (max-width: 360px) {
+    .experience-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+.experience-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 12px;
+    background: var(--ink);
+    color: var(--paper);
+    
+}
+
+.experience-image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+}
+
+.experience-header{
+    padding: 12px 20px 0px 20px;
+    margin-top: auto;
+}
+
+.experience-header h3 {
+    margin: 0;
+    font-size: 1rem; 
+    line-height: 1.2;
+    font-weight: 700;
+    text-transform: uppercase;
+    
+}
+
+.experience-detail {
+    margin-top: auto;
+    padding: 12px 20px 12px 20px;
+    font-size: 0.75rem;
+}
+
+.year-and-role {
+    margin: 6px 0 0;
+    line-height: 1.2;
+    font-weight: 700;
+    margin-bottom: 4px;
+
+    background: linear-gradient(
+        270deg,
+        var(--accent) 10%,
+        var(--accent-dark) 100%
+    );
+    background-clip: text;
+    color: transparent;
+    
+}
+
+.role-desc {
+    margin: 0;
+    line-height: 1.2;
+    opacity: 0.6;
+    
+}
+
+
