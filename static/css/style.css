@@ -6,6 +6,8 @@
 }
 
 :root {
+    /*Variabel-variabel untuk warna*/
+
     --ink: #FAF5ED;
     --paper: #000000;
     --accent: #ffed2a;
@@ -20,6 +22,8 @@
 }
 
 body {
+    /*Mengatur default style untuk bagian body*/
+
     font-family: "Poppins", sans-serif;
     color: var(--ink);
     background-color: var(--paper);
@@ -56,6 +60,7 @@ h1, .brand {
     text-decoration: none;
 }
 
+/*Style untuk NavBar*/
 .site-header nav {
     display: flex;
     gap: 2rem;
@@ -66,13 +71,18 @@ h1, .brand {
     text-decoration: none;
     font-size: 0.95rem;
 }
-
 .site-header nav a:hover{
+    /*Animasi hover di button navbar dengan mengubah warna menjadi gradien dan diberi underline.*/
+
     text-decoration-line: underline;
     background: var(--gradient-primary);
     background-clip: text;
     color: transparent;
 }
+
+/**
+        SECTION: HERO-PROFILE
+**/
 
 .hero {
     padding: 4.5rem 0 5rem;
@@ -96,6 +106,7 @@ h1, .brand {
 }
 
 .hero-kicker {
+    /*Styling untuk tulisan "Computer Science - Universitas Indonesia"*/
     font-size: 0.85rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -105,11 +116,13 @@ h1, .brand {
 }
 
 .hero-identity h1 {
+    /*Styling "Silvia Lalita Damayanti*/
     font-size: clamp(3rem, 7vw, 5rem);
     line-height: 0.95;
 }
 
 span{
+    /*Format tersendiri untuk bagian text yang ingin diubah warnanya menjadi gradasi.*/
     background: var(--gradient-primary);
     background-clip: text;
     color: transparent;
@@ -117,7 +130,7 @@ span{
 
 .bio {
     color: var(--ink);
-    opacity: 0.6;
+    opacity: 0.6;   /*Opacity diturunkan agar warna terlihat lebih muted*/
     max-width: 480px;
     margin-bottom: 1.5rem;
 }
@@ -136,7 +149,6 @@ span{
     opacity: 0.6;
     margin-bottom: 0.15rem;
 }
-
 .meta-row dd {
     font-weight: 600;
 }
@@ -153,17 +165,16 @@ span{
     font-weight: 600;
     text-decoration: none;
     border: 2pt;
-
     color: var(--ink);
 
 }
-
 .social-link:hover {
+    /*Animasi hover untuk ikon sosmed: Memperbesar dan ubah warna jadi gradasi*/
     background: var(--gradient-primary);
     background-clip: text;
     color: transparent;
-    transform: scale(1.2)translateY(-5px);
 
+    transform: scale(1.2)translateY(-5px);
 }
 
 .hero-photo {
@@ -206,17 +217,24 @@ span{
     }
 }
 
+
+/**
+        SECTION: EXPERIENCES
+**/
 .experience {
     padding: 80px 0;
 }
 
 .experience-title{
-    gap: 2rem
+    /*Mengatur jarak header experience dengan deskripsi singkatnya*/
+    gap: 2rem;
     
 }
 .experience-title h2{
+    /*Mengatur text bagian "Some of My Experiences"*/
     font-size: clamp(2rem, 4vw, 3rem); 
 }
+
 .experience-desc {
     font-size: 1rem;
     color: var(--ink);
@@ -226,21 +244,22 @@ span{
 }
 
 .experience-list {
+    /*Mengatur layout jarak serta banyaknya card dalam satu kolom*/
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
 }
 
-/* Tablet */
+/* Card Responsive */
 @media (max-width: 640px) {
     .experience-list {
+        /*Dua cards per kolom*/
         grid-template-columns: repeat(2, 1fr);
     }
 }
-
-/* HP */
 @media (max-width: 360px) {
     .experience-list {
+        /*Satu card per kolom*/
         grid-template-columns: 1fr;
     }
 }
@@ -265,7 +284,6 @@ span{
 .experience-header{
     padding: 12px 20px 0px 20px;
 }
-
 .experience-header h3 {
     margin: 0;
     font-size: 1rem; 
@@ -276,12 +294,12 @@ span{
 }
 
 .experience-detail {
-    /*margin-top: auto;*/
     padding: 8px 20px 20px 20px;
     font-size: 0.75rem;
 }
 
 .year-and-role {
+    /*Styling text agar tebal dan berwarna gradasi*/
     margin: 6px 0 0;
     line-height: 1.2;
     font-weight: 700;
@@ -294,6 +312,8 @@ span{
 }
 
 .role-desc {
+    /*Styling text dengan opacity rendah karena merupakan elemen tersier
+    dengan prioritas paling rendah.*/
     margin: 0;
     line-height: 1.2;
     opacity: 0.6;
