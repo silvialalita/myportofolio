@@ -12,9 +12,9 @@
     --accent-dark: #b82aff;
     --line: #1f1f1f;
     --gradient-primary: linear-gradient(
-        45deg,
-        var(--accent) 10%,
-        var(--accent-dark) 100%
+        225deg,
+        var(--accent) 5%,
+        var(--accent-dark) 90%
     );
     --radius: 4px;
 }
