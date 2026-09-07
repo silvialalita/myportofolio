@@ -253,7 +253,6 @@ span{
 
 .experience-header{
     padding: 12px 20px 0px 20px;
-    margin-top: auto;
 }
 
 .experience-header h3 {
@@ -266,8 +265,8 @@ span{
 }
 
 .experience-detail {
-    margin-top: auto;
-    padding: 12px 20px 12px 20px;
+    /*margin-top: auto;*/
+    padding: 8px 20px 20px 20px;
     font-size: 0.75rem;
 }
 
