@@ -16,10 +16,10 @@
 <body>
     <header class="site-header">
         <div class="container">
-            <a href="#profile" class="brand">Lalita's Portofolio</a>
+            <a href="{% url 'main:show_main' %}" class="brand">{{ name }}</a>
             <nav>
-                <a href="#profile">Profile</a>
-                <a href="#experience">Experiences</a>
+                <a href="{% url 'main:show_main' %}">Profile</a>
+                <a href="{% url 'main:show_experience' %}">Experience</a>
             </nav>
         </div>
     </header>
@@ -29,7 +29,7 @@
             <div class="container hero-grid">
                 <div class="hero-identity">
                     <p class="hero-kicker">Computer Science &middot; Universitas Indonesia</p>
-                    <h1>Silvia <span>Lalita</span> Damayanti</h1>
+                    <h1>{{ name }}</h1>
                 </div>
 
                 <div class="hero-photo">
@@ -55,17 +55,17 @@
                     </div>
 
                     <p class="bio">
-                        I am an undergraduate Computer Science student who enjoys exploring the intersection of design and technology, with a particular interest in Digital Product Design. I love creating things, learning new skills, and developing innovative and impactful solutions through design.
+                        {{ bio }}
                     </p>
 
                     <dl class="meta-list">
                         <div class="meta-row">
                             <dt>NPM</dt>
-                            <dd>2506621863</dd>
+                            <dd>{{ npm }}</dd>
                         </div>
                         <div class="meta-row">
                             <dt>Program</dt>
-                            <dd>S1 Ilmu Komputer</dd>
+                            <dd>{{ study_program  }}</dd>
                         </div>
                     </dl>
                     
@@ -177,7 +177,7 @@
 
     <footer class="site-footer">
         <div class="container">
-            <p>&copy; 2026 Silvia Lalita Damayanti. Fakultas Ilmu Komputer, Universitas Indonesia.</p>
+            <p>&copy; 2026 {{  name  }}. Fakultas Ilmu Komputer, Universitas Indonesia.</p>
         </div> 
     </footer>
 </body>
