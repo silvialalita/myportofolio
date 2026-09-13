@@ -5,9 +5,9 @@
     scroll-behavior: smooth;
 }
 
+/* ~REUSEABLE DESIGN SYSTEM~ */
 :root {
-    /*Variabel-variabel untuk warna*/
-
+    /*Variabel-variabel Warna*/
     --ink: #FAF5ED;
     --paper: #000000;
     --accent: #ffed2a;
@@ -18,7 +18,10 @@
         var(--accent) 5%,
         var(--accent-dark) 90%
     );
-    --radius: 4px;
+
+    /* Variabel-variabel Numeric */
+    --radius: 8px;
+    --opacity: 0.6;
 }
 
 body {
@@ -30,10 +33,17 @@ body {
     line-height: 1.6;
 }
 
-h1, .brand {
-    font-family: "Poppins", sans-serif;
-    font-weight: 700;
+/* Font Size Set-up */
+h2{
+    /* untuk page/section title */
+    font-size: clamp(2rem, 4vw, 3rem); 
 }
+
+h3{
+    /* untuk content/article header */
+    font-size: 1rem; 
+}
+
 
 .container {
     max-width: 960px;
@@ -41,9 +51,41 @@ h1, .brand {
     padding: 0 1.5rem;
 }
 
+h1, .brand {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+}
+
+.section-kicker {   /* Section Kicker Styling */
+    /* Font Setup */
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    font-weight: 700;
+
+    /* Text Color */
+    color: var(--accent-dark);
+    
+    /* Spacing & Margin */
+    letter-spacing: 0.08em;
+    margin-bottom: 0.75rem;
+}
+
+span{
+    /*Format tersendiri untuk bagian text yang ingin diubah warnanya menjadi gradasi.*/
+    background: var(--gradient-primary);
+    background-clip: text;
+    color: transparent;
+}
+
+
+
+
+/* 
+    NAVBAR STYLING 
+*/
 .site-header {
     border-bottom: 1px solid var(--line);
-    
+
 }
 
 .site-header .container {
@@ -60,7 +102,6 @@ h1, .brand {
     text-decoration: none;
 }
 
-/*Style untuk NavBar*/
 .site-header nav {
     display: flex;
     gap: 2rem;
@@ -79,6 +120,9 @@ h1, .brand {
     background-clip: text;
     color: transparent;
 }
+
+
+
 
 /**
         SECTION: HERO-PROFILE
@@ -105,27 +149,10 @@ h1, .brand {
     grid-area: details;
 }
 
-.hero-kicker {
-    /*Styling untuk tulisan "Computer Science - Universitas Indonesia"*/
-    font-size: 0.85rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink);
-    font-weight: 700;
-    margin-bottom: 0.75rem;
-}
-
 .hero-identity h1 {
     /*Styling "Silvia Lalita Damayanti*/
     font-size: clamp(3rem, 7vw, 5rem);
     line-height: 0.95;
-}
-
-span{
-    /*Format tersendiri untuk bagian text yang ingin diubah warnanya menjadi gradasi.*/
-    background: var(--gradient-primary);
-    background-clip: text;
-    color: transparent;
 }
 
 .bio {
@@ -218,6 +245,8 @@ span{
 }
 
 
+
+
 /**
         SECTION: EXPERIENCES
 **/
@@ -268,7 +297,7 @@ span{
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    border-radius: 12px;
+    border-radius: var(--radius);
     background: var(--ink);
     color: var(--paper);
     
@@ -320,21 +349,14 @@ span{
     
 }
 
+/* INI EXPERIENCE YANG BARU */
+
 .experience-section {
     padding: 4rem 0;
     border-top: 1px solid var(--line);
 }
 
-.section-kicker {
-    color: var(--accent-dark);
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-}
-
 .experience-section h1 {
-    margin: 0.4rem 0 1.5rem;
     font-size: 2rem;
 }
 
@@ -374,4 +396,110 @@ span{
     font-weight: 600;
 }
 
+
+
+
+/*
+    EDUCATION    
+*/
+
+.edu-section{
+    padding: 4rem 0;
+}
+
+.edu-section h1 {
+    font-size: 2rem;
+}
+
+.edu-grid{
+    display: grid;
+    grid-template-columns: repeat(3,1fr); 
+    gap: 16px;
+}
+/* Card Responsive */
+@media (max-width: 640px) {
+    .edu-grid{
+        /*Dua cards per kolom*/
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+}
+@media (max-width: 360px) {
+    .edu-grid{
+        /*Satu card per kolom*/
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+}
+
+.edu-card{
+    /* cards shape & size */
+    border-radius: var(--radius);
+    border: 2px solid var(--line);
+    padding: 1.25rem;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+
+    /* position */
+    position: relative;
+}
+
+.edu-image {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    object-fit:fill;
+}
+
+.edu-overlay{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    
+    z-index: 1;
+
+    background: linear-gradient(
+        transparent 30%,
+        var(--line) 80%
+    );
+}
+
+.edu-content{
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    inset: 0;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.edu-detail{
+    gap: 0.5rem;
+}
+
+.edu-category{
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    opacity: var(--opacity);
+}
+
+.edu-year{
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.edu-desc{
+    font-size: 0.75rem;
+    opacity: var(--opacity);
+}
 
