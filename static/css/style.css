@@ -34,14 +34,21 @@ body {
 }
 
 /* Font Size Set-up */
+h1 {
+    font-size: clamp(3rem, 7vw, 5rem);
+}
+
 h2{
     /* untuk page/section title */
     font-size: clamp(2rem, 4vw, 3rem); 
+    font-weight: 700;
 }
 
 h3{
     /* untuk content/article header */
     font-size: 1rem; 
+    font-size: clamp(1.2rem, 2vw, 2rem); 
+    font-weight: 700;
 }
 
 
@@ -63,7 +70,8 @@ h1, .brand {
     font-weight: 700;
 
     /* Text Color */
-    color: var(--accent-dark);
+    color: var(--ink);
+    opacity: 0.9;
     
     /* Spacing & Margin */
     letter-spacing: 0.08em;
@@ -250,17 +258,19 @@ span{
 /**
         SECTION: EXPERIENCES
 **/
+
+/*
 .experience {
     padding: 80px 0;
 }
 
 .experience-title{
-    /*Mengatur jarak header experience dengan deskripsi singkatnya*/
+    Mengatur jarak header experience dengan deskripsi singkatnya
     gap: 2rem;
     
 }
 .experience-title h2{
-    /*Mengatur text bagian "Some of My Experiences"*/
+    Mengatur text bagian "Some of My Experiences"
     font-size: clamp(2rem, 4vw, 3rem); 
 }
 
@@ -273,22 +283,22 @@ span{
 }
 
 .experience-list {
-    /*Mengatur layout jarak serta banyaknya card dalam satu kolom*/
+    Mengatur layout jarak serta banyaknya card dalam satu kolom
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
 }
 
-/* Card Responsive */
+/* Card Responsive 
 @media (max-width: 640px) {
     .experience-list {
-        /*Dua cards per kolom*/
+        Dua cards per kolom
         grid-template-columns: repeat(2, 1fr);
     }
 }
 @media (max-width: 360px) {
     .experience-list {
-        /*Satu card per kolom*/
+        Satu card per kolom
         grid-template-columns: 1fr;
     }
 }
@@ -328,7 +338,7 @@ span{
 }
 
 .year-and-role {
-    /*Styling text agar tebal dan berwarna gradasi*/
+    Styling text agar tebal dan berwarna gradasi
     margin: 6px 0 0;
     line-height: 1.2;
     font-weight: 700;
@@ -341,13 +351,17 @@ span{
 }
 
 .role-desc {
-    /*Styling text dengan opacity rendah karena merupakan elemen tersier
-    dengan prioritas paling rendah.*/
+    Styling text dengan opacity rendah karena merupakan elemen tersier
+    dengan prioritas paling rendah.
     margin: 0;
     line-height: 1.2;
     opacity: 0.6;
     
 }
+*/
+
+
+
 
 /* INI EXPERIENCE YANG BARU */
 
@@ -361,39 +375,79 @@ span{
 }
 
 .experience-grid {
+    /*Mengatur layout jarak serta banyaknya card dalam satu kolom*/
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+}
+
+/* Card Responsive */
+@media (max-width: 800px) {
+    .experience-grid {
+        /*Satu card per kolom*/
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 640px) {
+    .experience-grid {
+        /*Satu card per kolom*/
+        grid-template-columns: 1fr;
+    }
 }
 
 .experience-cards {
-    padding: 1.25rem;
-    background-color: var(--line);
-    border: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
     border-radius: var(--radius);
+    background: var(--line);
+    
+}
+
+.experience-image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+}
+
+.experience-content {
+    padding: 1.25rem;
+
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    
 }
 
 .experience-category {
-    color: var(--accent-dark);
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
 }
 
-.experience-cards h2 {
-    margin: 0.5rem 0;
-    font-size: 1.25rem;
+.experience-content h3{
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+    line-height: 1.2;
+    
 }
 
 .experience-description,
 .empty-state {
-    color: var(--text-muted);
+    font-size: 0.75rem;
+    opacity: var(--opacity);
+    margin-bottom: 1rem;
+    margin-top: 0.2rem;
 }
 
 .experience-status {
-    margin-top: 1rem;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     font-weight: 600;
+    text-transform: uppercase;
+
+    margin-left: auto;
+    margin-top: auto;
 }
 
 
@@ -413,18 +467,18 @@ span{
 
 .edu-grid{
     display: grid;
-    grid-template-columns: repeat(3,1fr); 
+    grid-template-columns: repeat(2,1fr); 
     gap: 16px;
 }
 /* Card Responsive */
-@media (max-width: 640px) {
+@media (max-width: 800px) {
     .edu-grid{
         /*Dua cards per kolom*/
         grid-template-columns: repeat(2, 1fr);
         gap: 8px;
     }
 }
-@media (max-width: 360px) {
+@media (max-width: 640px) {
     .edu-grid{
         /*Satu card per kolom*/
         grid-template-columns: 1fr;
