@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.utils import timezone
 
 from main.models import Experience
+from main.models import Education
 
 
 class MainTest(TestCase):
@@ -11,6 +12,14 @@ class MainTest(TestCase):
             title="Asisten Dosen PBP",
             description="Membantu mahasiswa memahami pengembangan web.",
             category="part-time",
+        )
+
+        #   --- EDUCATION --- #
+        self.education = Education.objects.create(
+                    institution="Universitas Indonesia",
+                    started_at="2025-01-15 00:00:00",
+                    description="S1 Ilmu Komputer",
+                    category="formal",
         )
 
     def test_main_url_is_accessible(self):
@@ -39,7 +48,7 @@ class MainTest(TestCase):
         self.assertContains(response, self.experience.title)
         self.assertContains(response, self.experience.description)
         self.assertContains(response, "Part-Time")
-        self.assertContains(response, "Sedang berlangsung")
+        self.assertContains(response, "ongoing")
         self.assertContains(response, f'href="{reverse("main:show_main")}"')
 
     def test_empty_experience_page(self):
@@ -54,5 +63,39 @@ class MainTest(TestCase):
         response = self.client.get(reverse("main:show_experience"))
 
         self.assertFalse(self.experience.is_ongoing)
-        self.assertContains(response, "Selesai")
-        self.assertNotContains(response, "Sedang berlangsung")
+        self.assertContains(response, "completed")
+        self.assertNotContains(response, "ongoing")
+
+
+
+    #   --- EDUCATION ---   #
+    def test_education_model(self):
+            self.assertEqual(str(self.education), "Universitas Indonesia")
+            self.assertEqual(self.education.category, "formal")
+            self.assertTrue(self.education.is_ongoing)
+    
+    def test_education_page(self):
+        response = self.client.get(reverse("main:show_education"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "education.html")
+        self.assertContains(response, self.education.institution)
+        self.assertContains(response, self.education.description)
+        self.assertContains(response, "Formal Education")
+        self.assertContains(response, "Present")
+        self.assertContains(response, f'href="{reverse("main:show_main")}"')
+
+    def test_empty_education_page(self):
+        Education.objects.all().delete()
+        response = self.client.get(reverse("main:show_education"))
+
+        self.assertContains(response, "No education added.")
+
+    def test_completed_education(self):
+        self.education.ended_at = timezone.now()
+        self.education.save()
+        response = self.client.get(reverse("main:show_education"))
+
+        self.assertFalse(self.education.is_ongoing)
+        self.assertContains(response, "2026")
+        self.assertNotContains(response, "Present")
