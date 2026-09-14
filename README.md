@@ -15,3 +15,23 @@ Namun saya tidak menggunakan elemen semantik <aside> karena sejauh ini portofoli
         - "kalo h1 font-size: clamp(3rem, 7vw, 5rem); coba bikinin ke ak dong enaknya h2,3,4,5 seberapa"
     2. Mengevaluasi apakah susunan card yang saya gunakan sudah sesuai dengan best practice. Awalnya saya mengerjakan terlebih dahulu sesuai kemampuan dan pemahaman saya, kemudian saya kirimkan potongan kode yang telah saya buat beserta foto referensi wireframenya ke ChatGPT untuk dikoreksi. Dibalas dengan rekomendasi untuk menggunakan <article> karena sebelumnya saya masih menggunakan <div>. 
     3. Meminta format commit message yang rapi dan profesional dengan format conventional commits.
+
+
+
+### Tugas 2
+0. AI Disclosure: 
+    Saya menggunakan AI ChatGPT sebagai alat bantu untuk memahami konsep Django MVT Architecture, mendapatkan masukan terkait implementasi dan struktur kode, menulis commit message di git yang rapi dan profesional, serta merapikan konten yang akan dimuat dalam portofolio. Seluruh keputusan dan implementasi akhir disesuaikan dan diperiksa kembali oleh saya.
+
+    Sumber Belajar:
+    Website PBP pbp.cs.ui.ac.id
+    ChatGPT https://chatgpt.com/share/6aa7e920-2618-83ec-b187-5bcaff720735 
+    Youtube https://youtu.be/c-6XRnYHbkw?si=OwLPrVYQKdLUJNRL 
+1. Alur yang terjadi ketika pengguna membuka halaman Education
+    Ketika pengguna membuka halaman portofolio baru, yaitu halaman Education pada Tugas 2, browser mengirimkan request ke proyek Django. Django pertama-tama mengecek portofolio/urls.py sebagai URL konfigurasi proyek untuk menentukan aplikasi yang menangani URL tersebut. Request kemudian diteruskan ke main/urls.py, yang memetakan URL tersebut ke view tertentu, yaitu show_education. View menjalankan logika yang diperlukan, salah satunya mengambil data dari model Education yang merepresentasikan data pendidikan di database. Setelah data diperoleh, view mengirimkannya sebagai context ke template education.html. Template kemudian menggunakan data tersebut untuk menghasilkan HTML secara dinamis. HTML hasil rendering selanjutnya dikirim kembali ke browser dan ditampilkan sebagai halaman Education.
+2. Mengapa data disimpan di model, bukan template
+    Karena model dan template memiliki tanggung jawab yang berbeda. Model mengurus data, sedangkan template mengurus tampilan. Jika data ditulis langsung di template, setiap ada perubahan atau penambahan data, developer harus mengedit kode HTML secara manual. Dengan model, data dapat dikelola melalui database atau Django Admin tanpa mengubah kode template. Selain itu, satu template dapat digunakan untuk menampilkan banyak objek dengan struktur yang sama, sehingga data tidak perlu ditulis berulang kali satu per satu. Jika ingin mengubah tampilan, developer juga cukup mengubah template satu kali dan perubahan tersebut akan diterapkan pada seluruh data yang ditampilkan. Hal ini membuat kode lebih mudah dipelihara dan dikembangkan, serta memungkinkan fitur seperti pencarian atau filter ditambahkan di kemudian hari.
+3. Perbedaan "makemigrations" dan "migrate"
+    makemigrations digunakan untuk membuat file migration berdasarkan perubahan yang dilakukan pada models.py. File tersebut berisi instruksi mengenai perubahan struktur database yang perlu dilakukan. Sementara itu, migrate digunakan untuk menerapkan migration tersebut ke database. Contohnya, pada project saya, saya menambahkan model Education yang berisi data riwayat pendidikan saya. Saya juga sempat menambahkan kategori "committee" pada model Experience untuk memperluas kategori pengalaman yang dapat dimasukkan. Setelah melakukan penambahan dan pengubahan pada model, saya jalankan:
+        python manage.py makemigrations
+        python manage.py migrate
+    Dengan demikian, perubahan pada model dapat diterapkan pada struktur database.
