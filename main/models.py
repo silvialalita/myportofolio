@@ -11,6 +11,7 @@ class Experience(models.Model):
         ('part-time', 'Part-Time'),
         ('full-time', 'Full-Time'),
         ('freelance', 'Freelance'),
+        ('committee', 'Committee'),
     ]
     
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -40,7 +41,7 @@ class Education(models.Model):
     description = models.TextField()
     category = models.CharField(max_length=30, choices=EDUCATION_TYPES, default='formal')
     thumbnail = models.URLField(blank=True, default='')
-    started_at = models.DateTimeField(auto_now_add=True)
+    started_at = models.DateTimeField()
     ended_at = models.DateTimeField(blank=True, null=True)
     def __str__(self):
         return self.institution
