@@ -1,31 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Experience - {{ name }}</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Brand Icons -->
-    <link href="https://cdn.boxicons.com/3.0.8/fonts/brands/boxicons-brands.min.css" rel="stylesheet">  
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/style.css">
-</head>
-
-<body>
-    <header class="site-header">
-        <div class="container">
-            <a href="#profile" class="brand">{{ name }}</a>
-            <nav>
-                <a href="{% url 'main:show_main' %}">Profile</a>
-                <a href="{% url 'main:show_experience' %}">Experience</a>
-                <a href="{% url 'main:show_education' %}">Education</a>
-            </nav>
-        </div>
-    </header>
-
-    <main>
+{% extends 'base.html' %}
+{% block content %}
+<main>
     <section class="experience-section" id="experience">
         <div class="container">
             <h1><span>Experience</span></h1>
@@ -73,11 +48,4 @@
         </div>
     </section>
 </main>
-
-    <footer class="site-footer">
-        <div class="container">
-            <p>&copy; 2026 {{  name  }}. Fakultas Ilmu Komputer, Universitas Indonesia.</p>
-        </div> 
-    </footer>
-</body>
-</html>
+{% endblock content %}
