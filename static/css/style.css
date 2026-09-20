@@ -559,7 +559,7 @@ span{
 
 
 
-/* projects */
+/* form */
 
 .project-form {
     width: 100%;
@@ -608,8 +608,8 @@ span{
     border: 0;
     border-radius: var(--radius);
     padding: 0.65rem 1rem;
-    background: var(--accent);
-    color: white;
+    background: var(--gradient-primary);
+    color: var(--ink);
     cursor: pointer;
     font: inherit;
     font-weight: 700;
@@ -617,11 +617,11 @@ span{
 }
 
 .button-secondary {
-    background: var(--ink);
+    background: red;
 }
 
 
-
+/*Project*/
 
 .project-header {
     width: 100%;
@@ -676,8 +676,8 @@ span{
     padding: 0.7rem;
     border: 1px solid var(--line);
     border-radius: var(--radius);
-    background: #fff;
-    color: var(--ink);
+    background: var(--ink);
+    color: var(--line);
     font: inherit;
 }
 
