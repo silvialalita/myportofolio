@@ -59,7 +59,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'portofolio.urls'
 
-CSRF_TRUSTED_ORIGINS = ["https://silvia-lalita-myportofolio.pws.cs.ui.ac.id/"]
+CSRF_TRUSTED_ORIGINS = ["https://silvia-lalita-myportofolio.pws.cs.ui.ac.id"]
 
 TEMPLATES = [
     {
