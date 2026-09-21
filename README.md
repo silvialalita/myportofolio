@@ -35,3 +35,35 @@ Namun saya tidak menggunakan elemen semantik <aside> karena sejauh ini portofoli
         python manage.py makemigrations
         python manage.py migrate
     Dengan demikian, perubahan pada model dapat diterapkan pada struktur database.
+
+
+
+### Tugas 3
+0. Selama mengerjakan Tugas 3, saya menggunakan AI ChatGPT sebagai learning dan debugging assistant, terutama untuk membantu memahami konsep Django, mencari penyebab error, dan mengeksplorasi cara mengimplementasikan fitur. Jawaban yang diberikan telah saya evaluasi dan pelajari lagi lebih lanjut sebelum akhirnya saya terapkan dalam kode saya.
+Beberapa hal yang saya tanyakan kepada AI antara lain:
+    01.  Git Branch Workflow | Membantu menghafal syntax git, termasuk menyusun commit message yang profesional. link: https://chatgpt.com/share/6ab130d9-f254-83ec-b348-00eb05ef0b48
+    02. Alur Forms & Data Delivery | Meringkas catatan pada Tutorial 3 dan memberikan hint serta arahan selama mengerjakan Tugas 3. link: https://chatgpt.com/share/6ab13193-4554-83ec-b8f7-8c1e50167a19
+    03. Menggunakan Icon Dari BoxIcons | Mencari penyebab error dan bertanya seputar CSS. link: https://chatgpt.com/share/6ab131e2-2500-83ec-9362-30936dd96647
+1. Jelaskan mengapa kita menggunakan ModelForm pada Django alih-alih membuat form HTML secara manual. Selain itu, jelaskan pula mengapa kita diwajibkan menambahkan {% csrf_token %} pada form tersebut!
+    ModelForm digunakan karena dapat membuat form berdasarkan model Django yang sudah dibuat. Jadi, tidak perlu mendefinisikan setiap field secara manual di HTML dan mengatur sendiri bagaimana data dari form akan disimpan ke database. ModelForm juga membantu melakukan validasi data yang diisi pengguna dan menyediakan fungsi seperti form.save() untuk menyimpan data ke database. Contohnya pada project saya, ExperienceForm dibuat berdasarkan model Experience. 
+    {% csrf_token %} digunakan untuk keamanan form dari CSRF (Cross-Site Request Forgery), yaitu serangan ketika pihak lain mencoba membuat user yang sedang login mengirim request ke website tanpa sepengetahuan user. Django menggunakan CSRF token untuk memastikan bahwa request POST tersebut berasal dari form yang memang dibuat oleh aplikasi kita. Oleh karena itu, form yang melakukan request seperti POST perlu menyertakan {% csrf_token %}
+2. Pada Tutorial 03, kita membahas format data JSON dan   XML. Mengapa JSON lebih disukai dalam pengembangan aplikasi web modern dibandingkan XML?
+    JSON (JavaScript Object Notation) lebih banyak digunakan karena formatnya lebih sederhana, ringkas, dan mlebih udah dibaca dan diproses dibandingkan XML. JSON juga memiliki struktur yang mirip dengan object dan array pada JavaScript, sehingga lebih mudah digunakan oleh aplikasi web. Contoh perbamndingan JSON dengan XML:
+    JSON:
+        {
+            "title": "Portfolio Website",
+            "description": "Personal portfolio menggunakan Django"
+        }
+    Sedangkan XML membutuhkan tag pembuka dan penutup:
+        <project>
+            <title>Portfolio Website</title>
+            <description>Personal portfolio menggunakan Django</description>
+        </project>
+3. Jelaskan alur yang terjadi saat kamu menggunakan fungsi view untuk mengembalikan data portofoliomu dalam bentuk JSON. Mengapa kita perlu melakukan proses serialization pada model Django sebelum datanya dikembalikan?
+    1. View mengambil data dari database menggunakan model Django. Misal:
+        projects = Project.object.all()
+    2. Data di-serialize dari object/queryset Django menjadi format JSON.
+        projects_json = serializers.serialize("json",projects)
+    3. View mengembalikan JSON sebagai response kepada client.
+        return HttpResponse(projects_json, content_type="application/json")
+    Serialization diperlukan karena data yang diambil dari database masih berupa object Django, sehingga perlu diubah menjadi format JSON agar dapat dikirim dan diproses oleh client atau aplikasi lain.
