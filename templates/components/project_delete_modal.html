@@ -1,10 +1,10 @@
 <p class="experience-status">
     <button type="button"
-            class="button button-danger"
+            class="button button-tertiary button-danger"
             popovertarget="delete-project-{{ project.id }}"
             aria-label="Hapus {{ project.title }}"
             title="Hapus proyek">
-        Hapus Proyek
+        <i class="bx bx-trash" aria-hidden="true"></i>
     </button>
 </p>
 <div id="delete-project-{{ project.id }}"
@@ -36,7 +36,7 @@
                     popovertargetaction="hide">Batal</button>
             <form method="post" action="{% url 'main:delete_project' project.id %}">
                 {% csrf_token %}
-                <button type="submit" class="button button-danger">Ya, Hapus</button>
+                <button type="submit" class="button button-p-danger">Ya, Hapus</button>
             </form>
         </div>
     </div>
