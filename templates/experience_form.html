@@ -1,15 +1,35 @@
 {% extends "base.html" %}
+
 {% block meta %}
-    <title>Add Experience - {{ name }}</title>
+    <title>
+        {% if experience %}
+            Edit Experience
+        {% else %}
+            Add Experience
+        {% endif %}
+        - {{ name }}
+    </title>
 {% endblock meta %}
+
 {% block content %}
     <main>
         <section class="experience-section">
             <div class="container">
-                <h1>Add New Experience</h1>
+                {% if experience %}
+                    <h1>Edit Experience</h1>
+                {% else %}
+                    <h1>Add New Experience</h1>
+                {% endif %}
+                
                 <form method="post"
-                      action="{% url 'main:create_experience' %}"
-                      class="experience-form">
+                    action="
+                        {% if experience %}
+                            {% url 'main:update_experience' experience.id %}
+                        {% else %}
+                            {% url 'main:create_experience' %}
+                        {% endif %}"
+                    class="project-form">
+                    
                     {% csrf_token %}
                     {% for field in form %}
                         <div class="form-group">
@@ -20,8 +40,21 @@
                             {% endfor %}
                         </div>
                     {% endfor %}
-                    <button type="submit" class="button">Tambah experience</button>
-                    <a href="{% url 'main:show_experience' %}" class="button button-secondary">Batal</a>
+
+                    {% if experience %}
+                        <button type="submit" class="button">
+                            Update Experience
+                        </button>
+                    {% else %}
+                        <button type="submit" class="button">
+                            Tambah Experience
+                        </button>
+                    {% endif %}
+                    
+                    <a href="{% url 'main:show_experience' %}"
+                       class="button button-secondary">
+                        Batal
+                    </a>
                 </form>
             </div>
         </section>
