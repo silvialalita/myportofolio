@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.contrib.auth.decorators import login_required  
+from django.contrib.auth.decorators import login_required, permission_required 
 from django.core.exceptions import PermissionDenied    
 from django.urls import reverse
 
@@ -36,6 +36,8 @@ def show_main(request):
 
 # EXPERIENCE
 def show_experience(request):
+    is_editor = request.user.groups.filter(name="Editor").exists()
+
     json_response = get_experiences_json(request)
 
     experiences = serializers.deserialize(
@@ -49,6 +51,7 @@ def show_experience(request):
         "name": "Silvia Lalita Damayanti",
         "experience_list": experiences,
         "title_query": title_query,
+        "is_editor": is_editor,
     }
     return render(request, "experience.html", context)
 
@@ -99,7 +102,8 @@ def delete_experience(request, experience_id):
 @login_required(login_url="/login/")
 def update_experience(request, experience_id):
     # validasi apakah user berwenang
-    if not request.user.is_superuser:
+    allowed_user = request.user.is_superuser or request.user.groups.filter(name="Editor").exists()
+    if not allowed_user:
         raise PermissionDenied
     
     experience = get_object_or_404(
@@ -153,6 +157,8 @@ def create_project(request):
     return render(request, "projects_form.html", context)
 
 def show_projects(request):
+    is_editor = request.user.groups.filter(name="Editor").exists()
+
     json_response = get_projects_json(request)
 
     projects = serializers.deserialize(
@@ -166,6 +172,7 @@ def show_projects(request):
         "name": "Silvia Lalita Damayanti",
         "project_list": projects,
         "title_query": title_query,
+        "is_editor": is_editor,
     }
     return render(request, "project.html", context)
 
@@ -199,7 +206,8 @@ def delete_project(request, project_id):
 @login_required(login_url="/login/")
 def update_project(request, project_id):
     # validasi apakah user berwenang
-    if not request.user.is_superuser:
+    allowed_user = request.user.is_superuser or request.user.groups.filter(name="Editor").exists()
+    if not allowed_user:
         raise PermissionDenied
 
     project = get_object_or_404(Project, pk=project_id,)
@@ -297,7 +305,7 @@ def login_user(request):
         login(request, form.get_user())
 
         # agar setelah log-in kembali ke current page
-        next_url = request.POST.get("next")
+        next_url = request.POST.get("next") or "main:show_main"
         response = redirect(next_url)
         response.set_cookie('last_login', datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
         return response

@@ -61,17 +61,22 @@
                                 <p class="experience-status">completed</p>
                             {% endif %}
                                 <div class="project-actions">
-                                    {% if user.is_superuser %}
+                                    
+                                    {% url 'main:toggle_exp_star' experience.id as starurl %}
+                                    {% include "components/project_star.html" with star_url=starurl item=experience %}
+
+                                    {% if user.is_superuser or is_editor %}
                                         <a href="{% url 'main:update_experience' experience.id %}"
                                             class="button button-tertiary"
                                             aria-label="Edit {{ experience.title }}"
                                             title="Edit Experience">
                                             <i class='bx bx-edit-alt' aria-hidden="true"></i>
                                         </a>
-                                    {% endif %}
 
-                                    {% url 'main:toggle_exp_star' experience.id as starurl %}
-                                    {% include "components/project_star.html" with star_url=starurl item=experience %}
+                                        {% if user.is_superuser %}
+                                            {% include "components/experience_delete_modal.html" with experience=experience %}
+                                        {% endif %}
+                                    {% endif %}
                                 </div>
                         </div>
                     </article>
