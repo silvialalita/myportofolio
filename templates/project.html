@@ -50,16 +50,18 @@
                                     {% include "components/project_star.html" with star_url=starurl item=project %}
 
                                     {% if user.is_superuser or is_editor %}
-                                        {% if user.is_superuser %}
-                                            {% include "components/project_delete_modal.html" with project=project %}
-                                        {% endif %}
+                                        <div class="experience-status">
+                                            <a href="{% url 'main:update_project' project.id %}" 
+                                                class="button button-tertiary"
+                                                aria-label="Edit {{ project.title }}"
+                                                title="Edit Project">
+                                                <i class='bx bx-edit-alt' aria-hidden="true"></i>
+                                            </a>
 
-                                        <a href="{% url 'main:update_project' project.id %}" 
-                                            class="button button-tertiary"
-                                            aria-label="Edit {{ project.title }}"
-                                            title="Edit Project">
-                                            <i class='bx bx-edit-alt' aria-hidden="true"></i>
-                                        </a>
+                                            {% if user.is_superuser %}
+                                                {% include "components/project_delete_modal.html" with project=project %}
+                                            {% endif %}
+                                        </div>
 
                                     {% endif %}
                                 </div>

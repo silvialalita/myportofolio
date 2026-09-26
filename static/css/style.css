@@ -446,6 +446,9 @@ span{
     font-weight: 600;
     text-transform: uppercase;
 
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
     margin-left: auto;
     margin-top: auto;
 }
