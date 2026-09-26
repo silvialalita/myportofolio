@@ -8,6 +8,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.decorators import login_required  
 from django.core.exceptions import PermissionDenied    
+from django.urls import reverse
 
 from main.forms import ProjectForm, ExperienceForm
 from main.models import Experience, Education, Project
@@ -51,7 +52,12 @@ def show_experience(request):
     }
     return render(request, "experience.html", context)
 
+@login_required(login_url="/login/")
 def create_experience(request):
+    # validasi apakah user berwenang
+    if not request.user.is_superuser:
+        raise PermissionDenied
+    
     form = ExperienceForm(request.POST or None)
 
     if request.method == "POST" and form.is_valid():
@@ -75,7 +81,12 @@ def get_experiences_json(request):
     experiences_json = serializers.serialize("json", experiences)
     return HttpResponse(experiences_json, content_type="application/json")
 
+@login_required(login_url="/login/")
 def delete_experience(request, experience_id):
+    # validasi apakah user berwenang
+    if not request.user.is_superuser:
+        raise PermissionDenied
+    
     experience = get_object_or_404(Experience, pk=experience_id)
 
     if request.method == "POST":
@@ -85,7 +96,12 @@ def delete_experience(request, experience_id):
 
     return redirect("main:show_experience")
 
+@login_required(login_url="/login/")
 def update_experience(request, experience_id):
+    # validasi apakah user berwenang
+    if not request.user.is_superuser:
+        raise PermissionDenied
+    
     experience = get_object_or_404(
         Experience,
         pk=experience_id,
@@ -167,6 +183,10 @@ def get_projects_json(request):
 
 @login_required(login_url="/login/")  # Tambahkan baris ini supaya wajib login
 def delete_project(request, project_id):
+    # validasi apakah user berwenang
+    if not request.user.is_superuser:
+        raise PermissionDenied
+    
     project = get_object_or_404(Project, pk=project_id)
 
     if request.method == "POST":
@@ -176,7 +196,12 @@ def delete_project(request, project_id):
 
     return redirect("main:show_projects")
 
+@login_required(login_url="/login/")
 def update_project(request, project_id):
+    # validasi apakah user berwenang
+    if not request.user.is_superuser:
+        raise PermissionDenied
+
     project = get_object_or_404(Project, pk=project_id,)
 
     form = ProjectForm(
@@ -200,6 +225,10 @@ def update_project(request, project_id):
 
     return render(request, "projects_form.html", context)
 
+
+
+# STAR COMPONENTS
+
 # Tanpa cek is_superuser: semua akun yang sudah login boleh memberi star
 @login_required(login_url="/login/")
 def toggle_star(request, project_id):
@@ -213,7 +242,23 @@ def toggle_star(request, project_id):
         else:
             project.starred_by.add(request.user)
 
-    return redirect("main:show_projects")
+    url = reverse("main:show_projects")
+    return redirect(f"{url}#{project.id}")
+
+@login_required(login_url="/login/")
+def toggle_exp_star(request, experience_id):
+    experience = get_object_or_404(Experience, pk=experience_id)
+
+    if request.method == "POST":
+        # Kalau akun ini sudah pernah memberi star, batalkan star-nya.
+        # Kalau belum, tambahkan star.
+        if request.user in experience.starred_by.all():
+            experience.starred_by.remove(request.user)
+        else:
+            experience.starred_by.add(request.user)
+
+    url = reverse("main:show_experience")
+    return redirect(f"{url}#{experience.id}")
 
 
 
@@ -250,7 +295,10 @@ def login_user(request):
 
     if request.method == "POST" and form.is_valid():
         login(request, form.get_user())
-        response = redirect("main:show_main")
+
+        # agar setelah log-in kembali ke current page
+        next_url = request.POST.get("next")
+        response = redirect(next_url)
         response.set_cookie('last_login', datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
         return response
 

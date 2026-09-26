@@ -12,6 +12,9 @@
                 {% endfor %}
                 <form method="post" action="{% url 'main:login' %}" class="project-form">
                     {% csrf_token %}
+
+                    <input type="hidden" name="next" value="{{ request.GET.next }}">
+
                     {% for field in form %}
                         <div class="form-group">
                             <label for="{{ field.id_for_label }}">{{ field.label }}</label>
@@ -21,9 +24,11 @@
                             {% endfor %}
                         </div>
                     {% endfor %}
+
                     {% for error in form.non_field_errors %}
                         <p class="form-error">{{ error }}</p>
                     {% endfor %}
+                    
                     <button type="submit" class="button">Login</button>
                 </form>
                 <p>Belum punya akun? <a href="{% url 'main:register' %}">Daftar di sini</a>.</p>

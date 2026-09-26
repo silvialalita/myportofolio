@@ -31,7 +31,7 @@
                 </form>
                 <div class="experience-grid project-grid">
                     {% for project in project_list %}
-                        <article class="experience-card">
+                        <article id="{{ project.id }}" class="experience-card">
                             {% if project.project_image_url %}
                                 <img src="{{ project.project_image_url }}"
                                      alt="Gambar {{ project.title }}"
@@ -45,17 +45,17 @@
                                     {% if project.project_url %}
                                         <a href="{{ project.project_url }}" class="button">Lihat Project</a>
                                     {% endif %}
-                                    
-                                    <a href="{% url 'main:update_project' project.id %}" 
-                                        class="button button-tertiary"
-                                        aria-label="Edit {{ project.title }}"
-                                        title="Edit Project">
-                                        <i class='bx bx-edit-alt' aria-hidden="true"></i>
-                                    </a>
 
-                                    {% include "components/project_star.html" with project=project %}
+                                    {% url 'main:toggle_star' project.id as starurl %}
+                                    {% include "components/project_star.html" with star_url=starurl item=project %}
 
                                     {% if user.is_superuser %}
+                                        <a href="{% url 'main:update_project' project.id %}" 
+                                            class="button button-tertiary"
+                                            aria-label="Edit {{ project.title }}"
+                                            title="Edit Project">
+                                            <i class='bx bx-edit-alt' aria-hidden="true"></i>
+                                        </a>
                                         {% include "components/project_delete_modal.html" with project=project %}
                                     {% endif %}
                                 </div>
