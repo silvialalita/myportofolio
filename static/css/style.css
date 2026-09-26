@@ -854,3 +854,31 @@ span{
         text-align: center;
     }
 }
+
+/* Components */
+.star-form {
+    display: inline;
+}
+
+.button-star {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--line);
+}
+
+.button-star.is-starred {
+    background: color-mix(
+        in srgb,
+        var(--accent-dark) 25%,
+        transparent
+    );
+}
+
+.star-count {
+    padding: 0.05rem 0.4rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.25);
+    font-size: 0.8rem;
+    color: var(--ink);
+}
