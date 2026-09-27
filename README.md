@@ -73,9 +73,9 @@ Beberapa hal yang saya tanyakan kepada AI antara lain:
 ### Tugas 4
 0. AI Disclosure
     Saya menggunakan AI ChatGPT sebagai alat bantu untuk memahami konsep Authentication, Session and Cookies Implementation, mendapatkan masukan terkait implementasi dan struktur kode, menulis commit message di git yang rapi dan profesional, serta penanganan error dan menguji berbagai skenario hak akses pengguna. Seluruh keputusan dan implementasi akhir disesuaikan dan diperiksa kembali oleh saya.
-    001 - Implementasi autentikasi, otorisasi, dan peran Editor: https://chatgpt.com/share/6ab8864c-4d18-83ec-9e2b-d0d802d1f8ad?ogimg=plain 
+    01. Implementasi autentikasi, otorisasi, dan peran Editor | https://chatgpt.com/share/6ab8864c-4d18-83ec-9e2b-d0d802d1f8ad?ogimg=plain 
         Menggunakan AI untuk membantu memahami dan memeriksa implementasi autentikasi dan otorisasi pada Django seperti pembuatan dan pengecekan grup Editor, penanganan error CSRF, serta untuk menjelaskan alasan di balik penggunaan kode tertentu dan membantu menguji berbagai skenario hak akses pengguna.
-    002 - Implementasi fitur star: https://chatgpt.com/share/6ab88662-e52c-83ec-b73b-a77092acb7de?ogimg=plain 
+    02. Implementasi fitur star | https://chatgpt.com/share/6ab88662-e52c-83ec-b73b-a77092acb7de?ogimg=plain 
         Panduan implementasi fitur star pada Project dan Experience agar component yang sudah dibikin bisa digunakan kembali (reusable Django component).
-    003 - Penanganan ?next: https://chatgpt.com/share/6ab88725-7130-83ec-a52f-58ab05e59cb5?ogimg=plain 
+    03. Penanganan ?next | https://chatgpt.com/share/6ab88725-7130-83ec-a52f-58ab05e59cb5?ogimg=plain 
         Membantu memahami fondasi Tutorial 04 dan penerapannya pada Tugas 4. Membantu memahami perbedaan antara POST dan GET, penjelasan mengenai parameter next, serta cara penanganan parameter next.
