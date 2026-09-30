@@ -179,8 +179,8 @@
             const completeCardHtml = `
                 ${imageHtml}
                 <h2>${escapeHtml(project.title)}</h2>
-                <span class="experience-category">${project.tech_stack}</span>
-                <p class="experience-description">${project.description}</p>
+                <span class="experience-category">${escapeHtml(project.tech_stack)}</span>
+                <p class="experience-description">${escapeHtml(project.description)}</p>
                 <div class="project-card-actions">
                     <div class="project-actions">
                         ${urlHtml}
