@@ -14,12 +14,12 @@
                     <h1><span> Projects </span></h1>
 
                     {% if user.is_superuser %} 
-                    <button type="button"
-                            class="button project-add-button"
-                            popovertarget="add-project-modal">
-                        <span aria-hidden="true">+</span>
-                        Tambah Proyek
-                    </button>
+                        <button type="button"
+                                class="button project-add-button"
+                                popovertarget="add-project-modal">
+                            <span aria-hidden="true">+</span>
+                            Tambah Proyek
+                        </button>
                     {% endif %}
                 </div>
                 <form id="project-search-form" class="project-search">
