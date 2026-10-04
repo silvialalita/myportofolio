@@ -968,6 +968,7 @@ span{
     z-index: 10;
     align-items: center;
     justify-content: center;
+    color: var(--ink);
 }
 
 .project-form-modal:popover-open {
@@ -1000,8 +1001,9 @@ span{
 
 .project-form-modal__content h2 {
     margin: 0 2.5rem 1.25rem 0;
-    font-family: "Space Grotesk", -apple-system, sans-serif;
+    /* font-family: "Space Grotesk", -apple-system, sans-serif; */
     font-size: 1.5rem;
+    color: var(--accent-dark);
 }
 
 .project-form-modal__close {
@@ -1011,7 +1013,8 @@ span{
     border: 0;
     padding: 0;
     background: transparent;
-    color: var(--text-muted);
+    color: var(--ink);
+    opacity: var(--opacity);
     font-size: 1.8rem;
     line-height: 1;
     cursor: pointer;
