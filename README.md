@@ -79,3 +79,16 @@ Beberapa hal yang saya tanyakan kepada AI antara lain:
         Panduan implementasi fitur star pada Project dan Experience agar component yang sudah dibikin bisa digunakan kembali (reusable Django component).
     03. Penanganan ?next | https://chatgpt.com/share/6ab88725-7130-83ec-a52f-58ab05e59cb5?ogimg=plain 
         Membantu memahami fondasi Tutorial 04 dan penerapannya pada Tugas 4. Membantu memahami perbedaan antara POST dan GET, penjelasan mengenai parameter next, serta cara penanganan parameter next.
+
+
+
+### Tugas 5
+0. **AI Disclosure**  
+    Dalam pengerjaan Tugas 5, saya menggunakan AI ChatGPT sebagai alat bantu untuk memahami konsep dan melakukan pengecekan terhadap implementasi yang saya kerjakan. AI membantu menjelaskan konsep AJAX, fetch(), debouncing, await, JSON response, dan XSS, serta membantu mengidentifikasi bagian kode yang perlu diperbaiki. AI saya gunakan sebagai pendamping dalam proses belajar dan debugging, bukan sebagai pengganti proses pengerjaan tugas. Seluruh keputusan dan implementasi akhir disesuaikan dan diperiksa kembali oleh saya.  
+    001. Web Interactivity with JavaScript: https://chatgpt.com/share/6ac35607-3e4c-83ec-8ddd-e10437208963
+1. **Jelaskan apa itu debouncing dan mengapa teknik ini penting diterapkan pada fitur pencarian yang menggunakan AJAX!**  
+    Debouncing adalah teknik menunda eksekusi suatu fungsi sampai pengguna berhenti melakukan suatu aktivitas selama waktu tertentu. Pada fitur pencarian dengan AJAX, debouncing digunakan agar request ke server tidak dikirim setiap kali pengguna mengetik satu karakter, artinya request baru dikirim setelah pengguna berhenti mengetik selama beberapa saat untuk mengurangi jumlah request ke server sehingga tidak membebani server dengan request yang tidak diperlukan.
+2. **Apa fungsi await ketika menggunakan fetch()? Apa yang terjadi jika tidak menggunakan await?**  
+    fetch() digunakan untuk melakukan request ke server dan hasilnya bersifat asynchronous. Artinya, proses request membutuhkan waktu dan JavaScript tidak langsung mendapatkan hasil response. await digunakan agar JavaScript menunggu sampai fetch() selesai dan mendapatkan response sebelum melanjutkan ke baris berikutnya. Tanpa await, hasil fetch() masih berupa Promise. Akibatnya, kode yang membutuhkan hasil response dapat dijalankan sebelum datanya tersedia.
+3. **Apa itu XSS dan mengapa data AJAX/JavaScript lebih rentan?**  
+    XSS (Cross-Site Scripting) adalah serangan dengan memasukkan kode berbahaya ke dalam data yang ditampilkan di halaman web. Data dari AJAX/JavaScript lebih rentan karena data tersebut biasanya dimasukkan langsung ke HTML oleh JavaScript. Jika tidak di-escape, browser dapat menganggapnya sebagai kode HTML/JavaScript dan menjalankannya.
