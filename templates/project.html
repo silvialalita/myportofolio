@@ -8,18 +8,22 @@
             <div class="container">
                 <p class="section-kicker">Karya yang saya bangun</p>
                 <div class="project-header">
-                    <button class="button button-secondary" onclick="showToast('Notifikasi Sistem', 'Project berhasil dimuat dengan baik!', 'success')">
-                        Test Toast Notifikasi
-                    </button>
+
+                    {% if user.is_superuser %} 
+                        <button class="button button-secondary" onclick="showToast('Notifikasi Sistem', 'Project berhasil dimuat dengan baik!', 'success')">
+                            Test Toast Notifikasi
+                        </button>
+                    {% endif %}
+
                     <h1><span> Projects </span></h1>
 
                     {% if user.is_superuser %} 
-                    <button type="button"
-                            class="button project-add-button"
-                            popovertarget="add-project-modal">
-                        <span aria-hidden="true">+</span>
-                        Tambah Proyek
-                    </button>
+                        <button type="button"
+                                class="button project-add-button"
+                                popovertarget="add-project-modal">
+                            <span aria-hidden="true">+</span>
+                            Tambah Proyek
+                        </button>
                     {% endif %}
                 </div>
                 <form id="project-search-form" class="project-search">
@@ -109,6 +113,7 @@
         // Konfigurasi
         const BASE_PROJECTS_ENDPOINT = "{% url 'main:get_projects_json' %}";
         const IS_SUPERUSER = "{{ user.is_superuser|yesno:'true,false' }}" === "true";
+        const IS_EDITOR = "{{ is_editor|yesno:'true,false' }}" === "true";
         let projectsAbortController;
 
         // Elemen DOM
@@ -149,7 +154,7 @@
             articleElement.className = 'experience-card';
 
             const imageHtml = project.project_image_url 
-                ? `<img src="${escapeHtml(project.project_image_url)}" alt="Gambar ${project.title}" class="project-image">`
+                ? `<img src="${escapeHtml(project.project_image_url)}" alt="Gambar ${escapeHtml(project.title)}" class="project-image">`
                 : '';
 
             const urlHtml = project.project_url 
@@ -161,11 +166,40 @@
                 .replace('00000000-0000-0000-0000-000000000000', projectId);
             const starUrl = "{% url 'main:toggle_star' '00000000-0000-0000-0000-000000000000' %}"
                 .replace('00000000-0000-0000-0000-000000000000', projectId);
+            const editUrl = "{% url 'main:update_project' '00000000-0000-0000-0000-000000000000' %}"
+                .replace("00000000-0000-0000-0000-000000000000", projectId);
+            
+            const editHtml =
+            (IS_SUPERUSER || IS_EDITOR)
+                ? `
+                    <div class="experience-status">
+                        <a
+                            href="${editUrl}"
+                            class="button button-tertiary"
+                            aria-label="Edit ${escapeHtml(project.title)}"
+                            title="Edit Project">
 
+                            <i
+                                class="bx bx-edit-alt"
+                                aria-hidden="true">
+                            </i>
+
+                        </a>
+                    </div>
+                `
+                : "";
             const deleteHtml = IS_SUPERUSER 
                 ? `<form method="post" action="${deleteUrl}" style="display:inline;">
                     {% csrf_token %}
-                    <button type="submit" class="button button-danger" onclick="return confirm('Yakin ingin menghapus project ini?');">Hapus</button>
+                    <button 
+                        type="submit" 
+                        class="button button-tertiary button-danger" 
+                        onclick="return confirm('Yakin ingin menghapus project ini?');"
+                        title="Hapus Project">
+                        
+                        <i class="bx bx-trash" aria-hidden="true"></i>
+
+                    </button>
                 </form>`
                 : '';
 
@@ -196,6 +230,7 @@
                             </button>
                         </form>
 
+                        ${editHtml}
                         ${deleteHtml}
                     </div>
                 </div>
