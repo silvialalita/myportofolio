@@ -21,7 +21,7 @@
                     <h1>Add New Experience</h1>
                 {% endif %}
                 
-                <form method="post"
+                <form id="experience-edit-form" method="post"
                     action="
                         {% if experience %}
                             {% url 'main:update_experience' experience.id %}
@@ -60,3 +60,105 @@
         </section>
     </main>
 {% endblock content %}
+
+{% block script %}
+    {% if experience %}
+        <script>
+            const editExperienceForm = document.getElementById("experience-edit-form");
+            const editExperienceApiUrl = editExperienceForm.dataset.apiUrl;
+
+            // Mengambil CSRF token dari cookie browser.
+            function getCookie(name) {
+                let cookieValue = null;
+
+                if (document.cookie && document.cookie !== "") {
+                    const cookies = document.cookie.split(";");
+
+                    for (let cookie of cookies) {
+                        cookie = cookie.trim();
+
+                        if (cookie.startsWith(name + "=")) {
+                            cookieValue = decodeURIComponent(
+                                cookie.substring(name.length + 1)
+                            );
+                            break;
+                        }
+                    }
+                }
+
+                return cookieValue;
+            }
+
+            // Mengubah error dari API menjadi pesan yang bisa ditampilkan.
+            function getApiErrorMessage(data, status) {
+                if (status === 403) {
+                    return "Kamu tidak memiliki izin untuk mengedit experience ini.";
+                }
+
+                if (status === 401) {
+                    return "Silakan login terlebih dahulu.";
+                }
+
+                if (status === 400 && data) {
+                    const errors = [];
+
+                    for (const [field, messages] of Object.entries(data)) {
+                        if (Array.isArray(messages)) {
+                            errors.push(`${field}: ${messages.join(", ")}`);
+                        } else if (typeof messages === "string") {
+                            errors.push(`${field}: ${messages}`);
+                        }
+                    }
+
+                    if (errors.length > 0) {
+                        return errors.join("\n");
+                    }
+                }
+
+                return "Terjadi kesalahan saat menyimpan experience.";
+            }
+
+            editExperienceForm.addEventListener("submit", async function(event) {
+                event.preventDefault();
+
+                const submitButton = editExperienceForm.querySelector(
+                    'button[type="submit"]'
+                );
+
+                submitButton.disabled = true;
+
+                // Mengambil data dari seluruh input form.
+                const formData = new FormData(editExperienceForm);
+                const payload = Object.fromEntries(formData.entries());
+
+                // CSRF token tidak perlu dikirim sebagai data JSON.
+                delete payload.csrfmiddlewaretoken;
+
+                try {
+                    const response = await fetch(editExperienceApiUrl, {
+                        method: "PATCH",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRFToken": getCookie("csrftoken")
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                        throw new Error(
+                            getApiErrorMessage(data, response.status)
+                        );
+                    }
+
+                    showToast("Experience berhasil diperbarui!");
+                } catch (error) {
+                    showToast(error.message);
+                } finally {
+                    submitButton.disabled = false;
+                }
+            });
+        </script>
+    {% endif %}
+{% endblock script %}
