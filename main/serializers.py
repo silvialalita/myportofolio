@@ -63,7 +63,7 @@ class ExperienceSerializer(serializers.ModelSerializer):
             "category", "category_display",
             "thumbnail", 
             "started_at", "ended_at", "is_ongoing", 
-            "star_count", "is_starred",
+            "star_count", "is_starred", "starred_by_names",
         ]
 
         # Field yang hanya boleh dibaca.
