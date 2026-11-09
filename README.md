@@ -92,3 +92,26 @@ Beberapa hal yang saya tanyakan kepada AI antara lain:
     fetch() digunakan untuk melakukan request ke server dan hasilnya bersifat asynchronous. Artinya, proses request membutuhkan waktu dan JavaScript tidak langsung mendapatkan hasil response. await digunakan agar JavaScript menunggu sampai fetch() selesai dan mendapatkan response sebelum melanjutkan ke baris berikutnya. Tanpa await, hasil fetch() masih berupa Promise. Akibatnya, kode yang membutuhkan hasil response dapat dijalankan sebelum datanya tersedia.
 3. **Apa itu XSS dan mengapa data AJAX/JavaScript lebih rentan?**  
     XSS (Cross-Site Scripting) adalah serangan dengan memasukkan kode berbahaya ke dalam data yang ditampilkan di halaman web. Data dari AJAX/JavaScript lebih rentan karena data tersebut biasanya dimasukkan langsung ke HTML oleh JavaScript. Jika tidak di-escape, browser dapat menganggapnya sebagai kode HTML/JavaScript dan menjalankannya.
+
+
+
+---
+### **Tugas 6**
+#### ***AI Disclosure🤖:***
+    Dalam pengerjaan Tugas 6, saya menggunakan AI ChatGPT sebagai alat bantu untuk mengintegrasikan JavaScript dengan Django REST Framework, saya menggunakan AI untuk membantu menghasilkan kode awal JavaScript dan memahami syntax, fungsi, serta alur logika dari kode yang digunakan. Namun, kode yang dihasilkan AI tidak selalu langsung sesuai dengan kebutuhan dan struktur proyek saya. Oleh karena itu, saya tetap memeriksa, memahami, mengedit, serta menyesuaikan kode tersebut. AI saya gunakan sebagai pendamping dalam proses belajar dan debugging, seluruh keputusan dan implementasi akhir disesuaikan dan diperiksa kembali oleh saya. 
+
+    Integrasi JavaScript dengan Django REST Framework: https://chatgpt.com/share/6af1c056-cf14-83ec-86f4-f45150f78a9c 
+#### **Refleksi:**
+1. **Jelaskan apa yang dimaksud dengan REST dan mengapa mengembalikan JSON saja belum cukup untuk menyebut sebuah API sebagai RESTful! Jelaskan pula perbedaan PUT dan PATCH beserta contoh kapan masing-masing sebaiknya digunakan!**
+    - REST *(Representational State Transfer)* adalah gaya arsitektur perangkat lunak yang mengatur komunikasi antara komponen yang terpisah, umumnya menggunakan arsitektur client-server melalui internet. REST memiliki beberapa prinsip, seperti client-server separation, stateless, cacheable, dan uniform interface. 
+    - Mengembalikan JSON saja belum cukup untuk disebut RESTful karena API juga perlu mengikuti prinsip REST, seperti penggunaan URI untuk mengidentifikasi resource serta HTTP method dan status code sesuai fungsinya.
+    - Perbedaan PUT dan PATCH adalah PUT digunakan untuk memperbarui keseluruhan data resource, sedangkan PATCH digunakan untuk memperbarui sebagian data saja. Contohnya, PUT mengirim seluruh field (lengkap) Experience, sementara PATCH cukup mengirim field description jika hanya deskripsi yang ingin diubah.
+2. **Jelaskan peran serializer pada Django REST Framework! Apa keuntungannya dibandingkan merakit dictionary secara manual dengan JsonResponse seperti pada Tutorial 05?**
+    - Serializer berfungsi mengubah objek Django, seperti model instance dan QuerySet, menjadi tipe data Python yang dapat dirender menjadi JSON (serialization). Serializer juga menangani proses sebaliknya, yaitu membaca data dari request, melakukan validasi, dan mengubahnya menjadi objek Django (deserialization).
+    - Dibandingkan merakit dictionary secara manual dengan JsonResponse, serializer lebih praktis karena menyediakan validasi data, mengurangi penulisan kode berulang, serta mendukung proses create() dan update() secara otomatis melalui ModelSerializer.
+3. **Jelaskan perbedaan autentikasi dan otorisasi pada Django REST Framework! Mengapa hak akses harus diperiksa dengan permission class di server, bukan hanya dengan menyembunyikan tombol di template?**
+    - Autentikasi adalah proses untuk mengidentifikasi siapa pengguna yang melakukan request, sedangkan otorisasi menentukan apakah pengguna tersebut memiliki izin untuk melakukan tindakan tertentu.
+    - Hak akses harus diperiksa menggunakan permission class di server karena menyembunyikan tombol pada template hanya membatasi tampilan antarmuka. Pengguna tetap bisa mengirim request API secara langsung melalui Postman atau cara lainnya. Dengan permission class, server dapat memastikan setiap request hanya melakukan tindakan yang diizinkan.
+4. **Jelaskan mengapa permintaan yang mengubah data tetap memerlukan token CSRF ketika API memakai SessionAuthentication! Mengapa test yang memakai force_authenticate tidak cukup untuk membuktikan bahwa perlindungan CSRF berjalan?**
+    - SessionAuthentication menggunakan session Django dan cookie browser. Karena browser otomatis mengirimkan cookie pada request, terdapat risiko CSRF *(Cross-Site Request Forgery)*, yaitu situs lain dapat mencoba mengirimkan request menggunakan session pengguna tanpa sepengetahuannya. Oleh karena itu, request yang mengubah data seperti POST, PUT, PATCH, dan DELETE tetap memerlukan validasi token CSRF. Untuk request AJAX, token dikirim melalui header X-CSRFToken.
+    - force_authenticate tidak cukup untuk menguji perlindungan CSRF karena metode tersebut langsung menetapkan pengguna yang terautentikasi sehingga tidak menguji mekanisme session dan CSRF yang sebenarnya. Pengujian CSRF perlu menggunakan APIClient(enforce_csrf_checks=True) agar validasi token benar-benar dijalankan.

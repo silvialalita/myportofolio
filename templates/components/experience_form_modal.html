@@ -9,7 +9,7 @@
             class="project-form-modal__backdrop"
             popovertarget="add-experience-modal"
             popovertargetaction="hide"
-            aria-label="Tutup form tambah experience"></button>
+            aria-label="Tutup form experience"></button>
 
     <div class="project-form-modal__content">
 
@@ -17,17 +17,17 @@
                 class="project-form-modal__close"
                 popovertarget="add-experience-modal"
                 popovertargetaction="hide"
-                aria-label="Tutup form tambah experience">
+                aria-label="Tutup form experience">
             ×
         </button>
 
-        <h2 id="add-experience-modal-title">
+        <h2 id="experience-modal-title">
             Tambah Experience Baru
         </h2>
 
         <form id="experience-form"
               method="post"
-              action="{% url 'main:create_experience' %}"
+              
               class="project-form">
 
             {% csrf_token %}
